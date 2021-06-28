@@ -19,6 +19,11 @@ public class GameImpl implements Game{
     private int remainingGuess;
     private boolean validNumberRange=true;
 
+    // == constructors ==
+    public GameImpl(NumberGenerator numberGenerator) {
+        this.numberGenerator = numberGenerator;
+    }
+
     //== public methods ==
 
     @Override
