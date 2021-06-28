@@ -19,12 +19,13 @@ public class GameImpl implements Game{
     private int remainingGuess;
     private boolean validNumberRange=true;
 
-    // == constructors ==
-    public GameImpl(NumberGenerator numberGenerator) {
-        this.numberGenerator = numberGenerator;
-    }
+
 
     //== public methods ==
+
+    public void setNumberGenerator(NumberGenerator numberGenerator) {
+        this.numberGenerator = numberGenerator;
+    }
 
     @Override
     public void reset() {
