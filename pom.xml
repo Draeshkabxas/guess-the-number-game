@@ -11,14 +11,15 @@
         <module>core</module>
     </modules>
     <packaging>pom</packaging>
+    <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-
     </dependencies>
+    </dependencyManagement>
 
 
     <properties>
