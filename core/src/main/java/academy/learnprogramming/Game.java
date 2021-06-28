@@ -16,7 +16,7 @@ public interface Game {
 
     void check();
 
-    boolean isValidNumber();
+    boolean isValidNumberRange();
 
     boolean isGameWon();
 
