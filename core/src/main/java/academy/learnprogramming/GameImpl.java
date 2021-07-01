@@ -3,6 +3,12 @@ package academy.learnprogramming;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 
 public class GameImpl implements Game{
     // == constants ==
@@ -10,6 +16,7 @@ public class GameImpl implements Game{
                = LoggerFactory.getLogger(GameImpl.class);
 
     // == fields ==
+    @Autowired
     private NumberGenerator numberGenerator;
     private int guessCount=10;
     private int number;
@@ -19,24 +26,26 @@ public class GameImpl implements Game{
     private int remainingGuess;
     private boolean validNumberRange=true;
 
+    // == init ==
+    @PostConstruct
+    @Override
+    public void reset() {
+        guess=0;
+        smallest=0;
+        biggest=numberGenerator.getMaxNumber();
+        remainingGuess=guessCount;
+        number=numberGenerator.next();
 
+        log.debug("The number is {}",number);
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        log.info("In Game preDestroy()");
+    }
 
     //== public methods ==
 
-    public void setNumberGenerator(NumberGenerator numberGenerator) {
-        this.numberGenerator = numberGenerator;
-    }
-
-    @Override
-    public void reset() {
-      guess=0;
-      smallest=0;
-      biggest=numberGenerator.getMaxNumber();
-      remainingGuess=guessCount;
-      number=numberGenerator.next();
-
-      log.debug("The number is {}",number);
-    }
 
     @Override
     public int getNumber() {
@@ -107,5 +116,19 @@ public class GameImpl implements Game{
     //== private methods ==
     private void checkValidNumberRange(){
         validNumberRange=(guess>=smallest) && (guess<=biggest);
+    }
+
+    @Override
+    public String toString() {
+        return "GameImpl{" +
+                "numberGenerator=" + numberGenerator +
+                ", guessCount=" + guessCount +
+                ", number=" + number +
+                ", guess=" + guess +
+                ", smallest=" + smallest +
+                ", biggest=" + biggest +
+                ", remainingGuess=" + remainingGuess +
+                ", validNumberRange=" + validNumberRange +
+                '}';
     }
 }
